@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { GenreList } from './component/genreList/GenreList';
+import Header from './component/header/Header';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { MovieList } from './component/movieList/MovieList';
+import { MovieDetails } from './component/movieDetails/MovieDetails';
+import { ContextProvider } from './contexts/context';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ContextProvider>
+        <div className="App">
+          <header className='main-header'>
+            <Header />
+          </header>
+          <section className='main-section'>
+
+            <Routes>
+              <Route path='/' element={<GenreList />} />
+              <Route path='/genre/:genreId' element={<MovieList />} />
+              <Route path='/movie/:movieId' element={<MovieDetails />} />
+            </Routes>
+          </section>
+        </div>
+      </ContextProvider>
+    </Router>
+
+
   );
 }
 
